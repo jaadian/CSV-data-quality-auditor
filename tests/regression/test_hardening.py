@@ -182,3 +182,12 @@ def test_validation_recommendation_only_for_rule_violations(tmp_path):
     # A 75%-empty column is a high issue but not a schema validation failure.
     result = CsvAuditor().audit(csv_file(tmp_path, "a,b\n1,\n2,\n3,\n4,x\n"))
     assert all(r.category != "Schema Validation" for r in result.recommendations)
+
+
+def test_report_does_not_disclose_absolute_input_path(tmp_path):
+    # CLI users often supply absolute paths, not only relative paths.
+    source = csv_file(tmp_path, "id\n001\n")
+    result = CsvAuditor().audit(source.resolve())
+    rendered = generate_json_report(result)
+    assert result.metadata.file_path == source.name
+    assert str(source.parent) not in rendered

@@ -188,7 +188,7 @@ class CsvAuditor:
             for row in sniff_result.sample_rows
         ]
         metadata = DatasetMetadata(
-            file_path=str(path),  # as given; resolve() leaked local home paths into shared reports
+            file_path=path.name,  # Reports must not disclose the caller's directory structure.
             file_size_bytes=sniff_result.file_size_bytes,
             encoding=sniff_result.encoding,
             delimiter=sniff_result.delimiter,
