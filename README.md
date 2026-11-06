@@ -135,7 +135,7 @@ More in [docs/limitations.md](docs/limitations.md).
 
 ## Development
 
-Built with AI assistance. Design decisions, bugs found while testing on real data, and their regression tests are recorded in [CHANGELOG.md](CHANGELOG.md) and [docs/engineering_decisions.md](docs/engineering_decisions.md).
+Built with AI assistance. Design decisions and regression tests are recorded in [CHANGELOG.md](CHANGELOG.md) and [docs/engineering_decisions.md](docs/engineering_decisions.md). For concrete bug walkthroughs and hands-on reflection prompts, see the [engineering learning log](docs/learning_log.md). To review the real repository history and publish without losing commits, see [Git workflow](docs/git_workflow.md).
 
 ## License
 

@@ -2,6 +2,15 @@
 
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follow [SemVer](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+- Shared reports now show only the input filename, including when the caller supplies an absolute path. Added a regression test for this case.
+
+### Documentation
+- Added a technical learning log with reproducible bug walkthroughs and personal reflection prompts.
+- Documented the authentic Git import history and publishing steps.
+
 ## [1.1.0] - 2026-11-05
 
 Tested on ten full datasets instead of ten-row samples. Every fix below has a regression test in `tests/regression/test_hardening.py`.
