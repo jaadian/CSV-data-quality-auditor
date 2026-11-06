@@ -1,0 +1,8 @@
+name: ames_housing
+title: Ames, Iowa house sales
+source_url: "https://raw.githubusercontent.com/wblakecannon/ames/master/data/housing.csv"
+upstream: "https://github.com/wblakecannon/ames"
+sha256: "1cf821e5ab53ce9ac177cb663872c2d2b8c5b385f85eed495ce62a213bd34f86"
+license: "Not verified. Check the upstream repository before redistributing the data."
+challenge: "82 columns, blank first header (pandas index), many NA-as-category fields"
+config: "configs/datasets/ames_housing.yaml"

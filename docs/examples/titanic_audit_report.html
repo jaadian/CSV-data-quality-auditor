@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSV Data Quality Audit: datasets/raw/titanic.csv</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #818cf8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 2rem;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    header {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    h1 { font-size: 1.75rem; font-weight: 700; color: #fff; }
+    .subtitle { color: var(--text-muted); font-size: 0.875rem; margin-top: 0.25rem; }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-excellent { background: rgba(34, 197, 94, 0.2); color: var(--success); border: 1px solid var(--success); }
+    .badge-good { background: rgba(56, 189, 248, 0.2); color: var(--primary); border: 1px solid var(--primary); }
+    .badge-needs-improvement { background: rgba(245, 158, 11, 0.2); color: var(--warning); border: 1px solid var(--warning); }
+    .badge-poor { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); }
+    .badge-high { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); }
+    .badge-medium { background: rgba(245, 158, 11, 0.2); color: var(--warning); border: 1px solid var(--warning); }
+    .badge-low { background: rgba(56, 189, 248, 0.2); color: var(--primary); border: 1px solid var(--primary); }
+
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 0.5rem;
+      padding: 1.25rem;
+    }
+    .card-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem; }
+    .card-value { font-size: 1.75rem; font-weight: 700; color: #fff; }
+    .card-desc { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+    section { margin-bottom: 2.5rem; }
+    h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #fff; border-left: 3px solid var(--primary); padding-left: 0.75rem; }
+    
+    table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.875rem; }
+    th { text-align: left; padding: 0.75rem 1rem; background: #162032; color: var(--text-muted); font-weight: 600; border-bottom: 1px solid var(--card-border); }
+    td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--card-border); }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+    .progress-bar { background: #334155; border-radius: 4px; overflow: hidden; height: 8px; width: 100px; display: inline-block; vertical-align: middle; margin-right: 0.5rem; }
+    .progress-fill { height: 100%; border-radius: 4px; }
+    .progress-fill-low { background: var(--success); }
+    .progress-fill-med { background: var(--warning); }
+    .progress-fill-high { background: var(--danger); }
+
+    .code-pill {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.75rem;
+      background: #0f172a;
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.25rem;
+      border: 1px solid var(--card-border);
+    }
+    .callout {
+      background: rgba(56, 189, 248, 0.08);
+      border-left: 4px solid var(--primary);
+      padding: 1rem;
+      border-radius: 0.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>CSV Data Quality Audit Report</h1>
+        <div class="subtitle">File: <span class="code-pill">datasets/raw/titanic.csv</span></div>
+        <div class="subtitle">Audited at 2026-11-05T17:36:18.106057+00:00 UTC &bull; csv-auditor v1.1.0</div>
+      </div>
+      <div>
+        <span class="badge badge-excellent">Score: 97.24/100 &bull; Excellent</span>
+      </div>
+    </header>
+
+    <div class="callout">
+      Quality Score is a heuristic synthesis of completeness, uniqueness, consistency, and configured schema validity. It is intended as an engineering indicator rather than an absolute specification.
+    </div>
+
+    <div class="grid-4">
+      <div class="card">
+        <div class="card-title">Completeness</div>
+        <div class="card-value">91.9%</div>
+        <div class="card-desc">Non-null cell ratio</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Uniqueness</div>
+        <div class="card-value">100.0%</div>
+        <div class="card-desc">0 duplicate row(s) (exact)</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Consistency</div>
+        <div class="card-value">97.8%</div>
+        <div class="card-desc">Column dominant-type alignment</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Validity</div>
+        <div class="card-value">100.0%</div>
+        <div class="card-desc">Evaluated via schema rules</div>
+      </div>
+    </div>
+
+    <section>
+      <h2>Dataset Overview</h2>
+      <div class="card">
+        <table>
+          <tbody>
+            <tr><th>Total Rows</th><td>891</td><th>File Size</th><td>58.89 KB</td></tr>
+            <tr><th>Total Columns</th><td>12</td><th>Detected Encoding</th><td>utf-8</td></tr>
+            <tr><th>Delimiter</th><td><span class="code-pill">,</span></td><th>Duplicate Row Count</th><td>0</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Missing Value Profile</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Missing Count</th>
+              <th>Missing %</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              <td><strong>PassengerId</strong></td>
+              <td>0 / 891</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill progress-fill-low" style="width: 0.0%;"></div>
+                </div>
+                0.0%
+              </td>
+              <td><span class="badge">none</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>Survived</strong></td>
+              <td>0 / 891</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill progress-fill-low" style="width: 0.0%;"></div>
+                </div>
+                0.0%
+              </td>
+              <td><span class="badge">none</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>Pclass</strong></td>
+              <td>0 / 891</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill progress-fill-low" style="width: 0.0%;"></div>
+                </div>
+                0.0%
+              </td>
+              <td><span class="badge">none</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>Name</strong></td>
+              <td>0 / 891</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill progress-fill-low" style="width: 0.0%;"></div>
+                </div>
+                0.0%
+              </td>
+              <td><span class="badge">none</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>Sex</strong></td>
+              <td>0 / 891</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill progress-fill-low" style="width: 0.0%;"></div>
+                </div>
+                0.0%
+              </td>
+              <td><span class="badge">none</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>Age</strong></td>
+              <td>177 / 891</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill progress-fill-med" style="width: 19.87%;"></div>
+                </div>
+                19.87%
+              </td>
+              <td><span class="badge badge-medium">medium</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>SibSp</strong></td>
+              <td>0 / 891</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill progress-fill-low" style="width: 0.0%;"></div>
+                </div>
+                0.0%
+              </td>
+              <td><span class="badge">none</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>Parch</strong></td>
+              <td>0 / 891</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill progress-fill-low" style="width: 0.0%;"></div>
+                </div>
+                0.0%
+              </td>
+              <td><span class="badge">none</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>Ticket</strong></td>
+              <td>0 / 891</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill progress-fill-low" style="width: 0.0%;"></div>
+                </div>
+                0.0%
+              </td>
+              <td><span class="badge">none</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>Fare</strong></td>
+              <td>0 / 891</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill progress-fill-low" style="width: 0.0%;"></div>
+                </div>
+                0.0%
+              </td>
+              <td><span class="badge">none</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>Cabin</strong></td>
+              <td>687 / 891</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill progress-fill-high" style="width: 77.1%;"></div>
+                </div>
+                77.1%
+              </td>
+              <td><span class="badge badge-high">high</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>Embarked</strong></td>
+              <td>2 / 891</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill progress-fill-low" style="width: 0.22%;"></div>
+                </div>
+                0.22%
+              </td>
+              <td><span class="badge badge-low">low</span></td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Inferred Column Types & Profiles</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Suggested Type</th>
+              <th>Confidence</th>
+              <th>Leading Zeros Flag</th>
+              <th>Distinct / Top Values</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              <td><strong>PassengerId</strong></td>
+              <td><span class="code-pill">integer</span></td>
+              <td>100.0%</td>
+              <td>No</td>
+              <td>
+                
+                  Unique: 891
+                
+              </td>
+            </tr>
+            
+            <tr>
+              <td><strong>Survived</strong></td>
+              <td><span class="code-pill">integer</span></td>
+              <td>100.0%</td>
+              <td>No</td>
+              <td>
+                
+                  Unique: 2
+                
+              </td>
+            </tr>
+            
+            <tr>
+              <td><strong>Pclass</strong></td>
+              <td><span class="code-pill">integer</span></td>
+              <td>100.0%</td>
+              <td>No</td>
+              <td>
+                
+                  Unique: 3
+                
+              </td>
+            </tr>
+            
+            <tr>
+              <td><strong>Name</strong></td>
+              <td><span class="code-pill">string</span></td>
+              <td>100.0%</td>
+              <td>No</td>
+              <td>
+                
+                  Unique: 891
+                
+              </td>
+            </tr>
+            
+            <tr>
+              <td><strong>Sex</strong></td>
+              <td><span class="code-pill">string</span></td>
+              <td>100.0%</td>
+              <td>No</td>
+              <td>
+                
+                  Unique: 2
+                
+              </td>
+            </tr>
+            
+            <tr>
+              <td><strong>Age</strong></td>
+              <td><span class="code-pill">float</span></td>
+              <td>100.0%</td>
+              <td>No</td>
+              <td>
+                
+                  Unique: 88
+                
+              </td>
+            </tr>
+            
+            <tr>
+              <td><strong>SibSp</strong></td>
+              <td><span class="code-pill">integer</span></td>
+              <td>100.0%</td>
+              <td>No</td>
+              <td>
+                
+                  Unique: 7
+                
+              </td>
+            </tr>
+            
+            <tr>
+              <td><strong>Parch</strong></td>
+              <td><span class="code-pill">integer</span></td>
+              <td>100.0%</td>
+              <td>No</td>
+              <td>
+                
+                  Unique: 7
+                
+              </td>
+            </tr>
+            
+            <tr>
+              <td><strong>Ticket</strong></td>
+              <td><span class="code-pill">integer</span></td>
+              <td>74.2%</td>
+              <td>No</td>
+              <td>
+                
+                  Unique: 681
+                
+              </td>
+            </tr>
+            
+            <tr>
+              <td><strong>Fare</strong></td>
+              <td><span class="code-pill">float</span></td>
+              <td>100.0%</td>
+              <td>No</td>
+              <td>
+                
+                  Unique: 248
+                
+              </td>
+            </tr>
+            
+            <tr>
+              <td><strong>Cabin</strong></td>
+              <td><span class="code-pill">string</span></td>
+              <td>99.5%</td>
+              <td>No</td>
+              <td>
+                
+                  Unique: 147
+                
+              </td>
+            </tr>
+            
+            <tr>
+              <td><strong>Embarked</strong></td>
+              <td><span class="code-pill">string</span></td>
+              <td>100.0%</td>
+              <td>No</td>
+              <td>
+                
+                  Unique: 3
+                
+              </td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    
+    <section>
+      <h2>Sample Records Preview</h2>
+      <div class="card" style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              
+              <th>PassengerId</th>
+              
+              <th>Survived</th>
+              
+              <th>Pclass</th>
+              
+              <th>Name</th>
+              
+              <th>Sex</th>
+              
+              <th>Age</th>
+              
+              <th>SibSp</th>
+              
+              <th>Parch</th>
+              
+              <th>Ticket</th>
+              
+              <th>Fare</th>
+              
+              <th>Cabin</th>
+              
+              <th>Embarked</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              
+              <td>1</td>
+              
+              <td>0</td>
+              
+              <td>3</td>
+              
+              <td>***</td>
+              
+              <td>male</td>
+              
+              <td>22</td>
+              
+              <td>1</td>
+              
+              <td>0</td>
+              
+              <td>***</td>
+              
+              <td>7.25</td>
+              
+              <td></td>
+              
+              <td>S</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>2</td>
+              
+              <td>1</td>
+              
+              <td>1</td>
+              
+              <td>***</td>
+              
+              <td>female</td>
+              
+              <td>38</td>
+              
+              <td>1</td>
+              
+              <td>0</td>
+              
+              <td>***</td>
+              
+              <td>71.2833</td>
+              
+              <td>C85</td>
+              
+              <td>C</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>3</td>
+              
+              <td>1</td>
+              
+              <td>3</td>
+              
+              <td>***</td>
+              
+              <td>female</td>
+              
+              <td>26</td>
+              
+              <td>0</td>
+              
+              <td>0</td>
+              
+              <td>***</td>
+              
+              <td>7.925</td>
+              
+              <td></td>
+              
+              <td>S</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>4</td>
+              
+              <td>1</td>
+              
+              <td>1</td>
+              
+              <td>***</td>
+              
+              <td>female</td>
+              
+              <td>35</td>
+              
+              <td>1</td>
+              
+              <td>0</td>
+              
+              <td>***</td>
+              
+              <td>53.1</td>
+              
+              <td>C123</td>
+              
+              <td>S</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>5</td>
+              
+              <td>0</td>
+              
+              <td>3</td>
+              
+              <td>***</td>
+              
+              <td>male</td>
+              
+              <td>35</td>
+              
+              <td>0</td>
+              
+              <td>0</td>
+              
+              <td>***</td>
+              
+              <td>8.05</td>
+              
+              <td></td>
+              
+              <td>S</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>6</td>
+              
+              <td>0</td>
+              
+              <td>3</td>
+              
+              <td>***</td>
+              
+              <td>male</td>
+              
+              <td></td>
+              
+              <td>0</td>
+              
+              <td>0</td>
+              
+              <td>***</td>
+              
+              <td>8.4583</td>
+              
+              <td></td>
+              
+              <td>Q</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>7</td>
+              
+              <td>0</td>
+              
+              <td>1</td>
+              
+              <td>***</td>
+              
+              <td>male</td>
+              
+              <td>54</td>
+              
+              <td>0</td>
+              
+              <td>0</td>
+              
+              <td>***</td>
+              
+              <td>51.8625</td>
+              
+              <td>E46</td>
+              
+              <td>S</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>8</td>
+              
+              <td>0</td>
+              
+              <td>3</td>
+              
+              <td>***</td>
+              
+              <td>male</td>
+              
+              <td>2</td>
+              
+              <td>3</td>
+              
+              <td>1</td>
+              
+              <td>***</td>
+              
+              <td>21.075</td>
+              
+              <td></td>
+              
+              <td>S</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>9</td>
+              
+              <td>1</td>
+              
+              <td>3</td>
+              
+              <td>***</td>
+              
+              <td>female</td>
+              
+              <td>27</td>
+              
+              <td>0</td>
+              
+              <td>2</td>
+              
+              <td>***</td>
+              
+              <td>11.1333</td>
+              
+              <td></td>
+              
+              <td>S</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>10</td>
+              
+              <td>1</td>
+              
+              <td>2</td>
+              
+              <td>***</td>
+              
+              <td>female</td>
+              
+              <td>14</td>
+              
+              <td>1</td>
+              
+              <td>0</td>
+              
+              <td>***</td>
+              
+              <td>30.0708</td>
+              
+              <td></td>
+              
+              <td>C</td>
+              
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+
+    
+    <section>
+      <h2>Detected Issues & Rule Violations (3)</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Severity</th>
+              <th>Rule</th>
+              <th>Column / Row</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              <td><span class="badge badge-medium">medium</span></td>
+              <td><span class="code-pill">missing_values</span></td>
+              <td>
+                Age
+                
+              </td>
+              <td>Column &#39;Age&#39; has 177 missing value(s) (19.9%)</td>
+            </tr>
+            
+            <tr>
+              <td><span class="badge badge-high">high</span></td>
+              <td><span class="code-pill">missing_values</span></td>
+              <td>
+                Cabin
+                
+              </td>
+              <td>Column &#39;Cabin&#39; has 687 missing value(s) (77.1%)</td>
+            </tr>
+            
+            <tr>
+              <td><span class="badge badge-low">low</span></td>
+              <td><span class="code-pill">missing_values</span></td>
+              <td>
+                Embarked
+                
+              </td>
+              <td>Column &#39;Embarked&#39; has 2 missing value(s) (0.2%)</td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+
+    
+    <section>
+      <h2>Actionable Recommendations</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Issue Summary</th>
+              <th>Suggested Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              <td><strong>Completeness</strong></td>
+              <td>Columns with &gt;20% missing values: Cabin</td>
+              <td>Review data capture pipeline for missing attributes or evaluate imputation strategies</td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+
+  </div>
+</body>
+</html>

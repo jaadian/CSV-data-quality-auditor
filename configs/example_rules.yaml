@@ -1,0 +1,34 @@
+version: 1
+missing_markers: ["", "NULL", "N/A", "-"]
+whitespace_as_missing: true
+columns:
+  customer_id:
+    type: string
+    required: true
+    unique: true
+  age:
+    type: integer
+    min: 0
+    max: 120
+  email:
+    type: string
+    format: email
+  status:
+    type: string
+    allowed: ["active", "churned"]
+  signup_date:
+    type: date
+    format: "%Y-%m-%d"
+cross_column:
+  - name: end_after_start
+    rule: "end_date >= start_date"
+    severity: high
+score_weights:
+  completeness: 0.30
+  uniqueness: 0.25
+  validity: 0.30
+  consistency: 0.15
+fail_on: high
+mask_columns: ["email"]
+max_examples: 5
+chunk_size: 50000

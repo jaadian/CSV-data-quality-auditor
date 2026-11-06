@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSV Data Quality Audit: datasets/raw/earthquakes.csv</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #818cf8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 2rem;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    header {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    h1 { font-size: 1.75rem; font-weight: 700; color: #fff; }
+    .subtitle { color: var(--text-muted); font-size: 0.875rem; margin-top: 0.25rem; }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-excellent { background: rgba(34, 197, 94, 0.2); color: var(--success); border: 1px solid var(--success); }
+    .badge-good { background: rgba(56, 189, 248, 0.2); color: var(--primary); border: 1px solid var(--primary); }
+    .badge-needs-improvement { background: rgba(245, 158, 11, 0.2); color: var(--warning); border: 1px solid var(--warning); }
+    .badge-poor { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); }
+    .badge-high { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); }
+    .badge-medium { background: rgba(245, 158, 11, 0.2); color: var(--warning); border: 1px solid var(--warning); }
+    .badge-low { background: rgba(56, 189, 248, 0.2); color: var(--primary); border: 1px solid var(--primary); }
+
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 0.5rem;
+      padding: 1.25rem;
+    }
+    .card-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem; }
+    .card-value { font-size: 1.75rem; font-weight: 700; color: #fff; }
+    .card-desc { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+    section { margin-bottom: 2.5rem; }
+    h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #fff; border-left: 3px solid var(--primary); padding-left: 0.75rem; }
+    
+    table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.875rem; }
+    th { text-align: left; padding: 0.75rem 1rem; background: #162032; color: var(--text-muted); font-weight: 600; border-bottom: 1px solid var(--card-border); }
+    td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--card-border); }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+    .progress-bar { background: #334155; border-radius: 4px; overflow: hidden; height: 8px; width: 100px; display: inline-block; vertical-align: middle; margin-right: 0.5rem; }
+    .progress-fill { height: 100%; border-radius: 4px; }
+    .progress-fill-low { background: var(--success); }
+    .progress-fill-med { background: var(--warning); }
+    .progress-fill-high { background: var(--danger); }
+
+    .code-pill {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.75rem;
+      background: #0f172a;
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.25rem;
+      border: 1px solid var(--card-border);
+    }
+    .callout {
+      background: rgba(56, 189, 248, 0.08);
+      border-left: 4px solid var(--primary);
+      padding: 1rem;
+      border-radius: 0.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>CSV Data Quality Audit Report</h1>
+        <div class="subtitle">File: <span class="code-pill">datasets/raw/earthquakes.csv</span></div>
+        <div class="subtitle">Audited at 2026-11-05T17:36:20.821599+00:00 UTC &bull; csv-auditor v1.1.0</div>
+      </div>
+      <div>
+        <span class="badge badge-excellent">Score: 99.99/100 &bull; Excellent</span>
+      </div>
+    </header>
+
+    <div class="callout">
+      Quality Score is a heuristic synthesis of completeness, uniqueness, consistency, and configured schema validity. It is intended as an engineering indicator rather than an absolute specification.
+    </div>
+
+    <div class="grid-4">
+      <div class="card">
+        <div class="card-title">Completeness</div>
+        <div class="card-value">100.0%</div>
+        <div class="card-desc">Non-null cell ratio</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Uniqueness</div>
+        <div class="card-value">99.99%</div>
+        <div class="card-desc">2 duplicate row(s) (exact)</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Consistency</div>
+        <div class="card-value">100.0%</div>
+        <div class="card-desc">Column dominant-type alignment</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Validity</div>
+        <div class="card-value">99.98%</div>
+        <div class="card-desc">Evaluated via schema rules</div>
+      </div>
+    </div>
+
+    <section>
+      <h2>Dataset Overview</h2>
+      <div class="card">
+        <table>
+          <tbody>
+            <tr><th>Total Rows</th><td>23412</td><th>File Size</th><td>813.99 KB</td></tr>
+            <tr><th>Total Columns</th><td>4</td><th>Detected Encoding</th><td>utf-8</td></tr>
+            <tr><th>Delimiter</th><td><span class="code-pill">,</span></td><th>Duplicate Row Count</th><td>2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Missing Value Profile</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Missing Count</th>
+              <th>Missing %</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              <td><strong>Date</strong></td>
+              <td>0 / 23412</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill progress-fill-low" style="width: 0.0%;"></div>
+                </div>
+                0.0%
+              </td>
+              <td><span class="badge">none</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>Latitude</strong></td>
+              <td>0 / 23412</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill progress-fill-low" style="width: 0.0%;"></div>
+                </div>
+                0.0%
+              </td>
+              <td><span class="badge">none</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>Longitude</strong></td>
+              <td>0 / 23412</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill progress-fill-low" style="width: 0.0%;"></div>
+                </div>
+                0.0%
+              </td>
+              <td><span class="badge">none</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>Magnitude</strong></td>
+              <td>0 / 23412</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill progress-fill-low" style="width: 0.0%;"></div>
+                </div>
+                0.0%
+              </td>
+              <td><span class="badge">none</span></td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Inferred Column Types & Profiles</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Suggested Type</th>
+              <th>Confidence</th>
+              <th>Leading Zeros Flag</th>
+              <th>Distinct / Top Values</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              <td><strong>Date</strong></td>
+              <td><span class="code-pill">date</span></td>
+              <td>100.0%</td>
+              <td>No</td>
+              <td>
+                
+                  Unique: 12401
+                
+              </td>
+            </tr>
+            
+            <tr>
+              <td><strong>Latitude</strong></td>
+              <td><span class="code-pill">float</span></td>
+              <td>100.0%</td>
+              <td>No</td>
+              <td>
+                
+                  Unique: 20676
+                
+              </td>
+            </tr>
+            
+            <tr>
+              <td><strong>Longitude</strong></td>
+              <td><span class="code-pill">float</span></td>
+              <td>100.0%</td>
+              <td>No</td>
+              <td>
+                
+                  Unique: 21474
+                
+              </td>
+            </tr>
+            
+            <tr>
+              <td><strong>Magnitude</strong></td>
+              <td><span class="code-pill">float</span></td>
+              <td>100.0%</td>
+              <td>No</td>
+              <td>
+                
+                  Unique: 64
+                
+              </td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    
+    <section>
+      <h2>Sample Records Preview</h2>
+      <div class="card" style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              
+              <th>Date</th>
+              
+              <th>Latitude</th>
+              
+              <th>Longitude</th>
+              
+              <th>Magnitude</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              
+              <td>01/02/1965</td>
+              
+              <td>19.246</td>
+              
+              <td>145.616</td>
+              
+              <td>6.0</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>01/04/1965</td>
+              
+              <td>1.8630000000000002</td>
+              
+              <td>127.352</td>
+              
+              <td>5.8</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>01/05/1965</td>
+              
+              <td>-20.579</td>
+              
+              <td>-173.972</td>
+              
+              <td>6.2</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>01/08/1965</td>
+              
+              <td>-59.076</td>
+              
+              <td>-23.557</td>
+              
+              <td>5.8</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>01/09/1965</td>
+              
+              <td>11.937999999999999</td>
+              
+              <td>126.427</td>
+              
+              <td>5.8</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>01/10/1965</td>
+              
+              <td>-13.405</td>
+              
+              <td>166.62900000000002</td>
+              
+              <td>6.7</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>01/12/1965</td>
+              
+              <td>27.357</td>
+              
+              <td>87.867</td>
+              
+              <td>5.9</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>01/15/1965</td>
+              
+              <td>-13.309000000000001</td>
+              
+              <td>166.21200000000002</td>
+              
+              <td>6.0</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>01/16/1965</td>
+              
+              <td>-56.452</td>
+              
+              <td>-27.043000000000003</td>
+              
+              <td>6.0</td>
+              
+            </tr>
+            
+            <tr>
+              
+              <td>01/17/1965</td>
+              
+              <td>-24.563000000000002</td>
+              
+              <td>178.487</td>
+              
+              <td>5.8</td>
+              
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+
+    
+    <section>
+      <h2>Detected Issues & Rule Violations (4)</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Severity</th>
+              <th>Rule</th>
+              <th>Column / Row</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              <td><span class="badge badge-high">high</span></td>
+              <td><span class="code-pill">exact_duplicate_rows</span></td>
+              <td>
+                
+                
+              </td>
+              <td>Found 2 duplicate row(s) out of 23412 total rows (row mode: exact)</td>
+            </tr>
+            
+            <tr>
+              <td><span class="badge badge-high">high</span></td>
+              <td><span class="code-pill">Date_date_format</span></td>
+              <td>
+                Date
+                 (row 3379)
+              </td>
+              <td>Date &#39;1975-02-23T02:58:41.000Z&#39; does not match format &#39;%m/%d/%Y&#39;</td>
+            </tr>
+            
+            <tr>
+              <td><span class="badge badge-high">high</span></td>
+              <td><span class="code-pill">Date_date_format</span></td>
+              <td>
+                Date
+                 (row 7513)
+              </td>
+              <td>Date &#39;1985-04-28T02:53:41.530Z&#39; does not match format &#39;%m/%d/%Y&#39;</td>
+            </tr>
+            
+            <tr>
+              <td><span class="badge badge-high">high</span></td>
+              <td><span class="code-pill">Date_date_format</span></td>
+              <td>
+                Date
+                 (row 20651)
+              </td>
+              <td>Date &#39;2011-03-13T02:23:34.520Z&#39; does not match format &#39;%m/%d/%Y&#39;</td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+
+    
+    <section>
+      <h2>Actionable Recommendations</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Issue Summary</th>
+              <th>Suggested Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr>
+              <td><strong>Uniqueness</strong></td>
+              <td>Encountered 2 duplicate row(s)</td>
+              <td>Deduplicate dataset before downstream loading; consider primary key constraints</td>
+            </tr>
+            
+            <tr>
+              <td><strong>Schema Validation</strong></td>
+              <td>3 rule violation(s) across 1 rule(s)</td>
+              <td>Quarantine defective records or patch pipeline transformations</td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+    </section>
+    
+
+  </div>
+</body>
+</html>

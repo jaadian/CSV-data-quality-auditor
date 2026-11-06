@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AuditResultSchema",
+  "type": "object",
+  "required": [
+    "metadata",
+    "score",
+    "missing",
+    "duplicates",
+    "types",
+    "profiling",
+    "issues",
+    "issue_summary",
+    "recommendations",
+    "rule_violations",
+    "rows_with_rule_violations"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "file_path",
+        "file_size_bytes",
+        "encoding",
+        "delimiter",
+        "total_rows",
+        "total_columns",
+        "column_names",
+        "timestamp_utc",
+        "auditor_version"
+      ],
+      "properties": {
+        "file_path": {
+          "type": "string"
+        },
+        "file_size_bytes": {
+          "type": "integer"
+        },
+        "encoding": {
+          "type": "string"
+        },
+        "delimiter": {
+          "type": "string"
+        },
+        "total_rows": {
+          "type": "integer"
+        },
+        "total_columns": {
+          "type": "integer"
+        },
+        "column_names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sniff_warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "timestamp_utc": {
+          "type": "string"
+        },
+        "auditor_version": {
+          "type": "string"
+        }
+      }
+    },
+    "score": {
+      "type": "object",
+      "required": [
+        "overall",
+        "rating",
+        "completeness",
+        "uniqueness",
+        "consistency",
+        "weights_used",
+        "dimensions_used"
+      ],
+      "properties": {
+        "overall": {
+          "type": "number"
+        },
+        "rating": {
+          "type": "string"
+        },
+        "completeness": {
+          "type": "number"
+        },
+        "uniqueness": {
+          "type": "number"
+        },
+        "validity": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "consistency": {
+          "type": "number"
+        },
+        "weights_used": {
+          "type": "object"
+        },
+        "dimensions_used": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "missing": {
+      "type": "object"
+    },
+    "duplicates": {
+      "type": "object",
+      "required": [
+        "exact_duplicate_rows",
+        "unique_rows",
+        "total_rows",
+        "mode"
+      ],
+      "properties": {
+        "exact_duplicate_rows": {
+          "type": "integer"
+        },
+        "unique_rows": {
+          "type": "integer"
+        },
+        "total_rows": {
+          "type": "integer"
+        },
+        "mode": {
+          "type": "string"
+        }
+      }
+    },
+    "types": {
+      "type": "object"
+    },
+    "profiling": {
+      "type": "object"
+    },
+    "issues": {
+      "type": "array"
+    },
+    "issue_summary": {
+      "type": "object"
+    },
+    "recommendations": {
+      "type": "array"
+    },
+    "rule_violations": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "rows_with_rule_violations": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

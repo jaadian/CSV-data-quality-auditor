@@ -1,0 +1,8 @@
+version: 1
+columns:
+  tx_id: {type: string, required: true, unique: true}
+  amount: {type: float, min: 0}
+  created_at: {type: date, format: "%Y-%m-%d %H:%M:%S"}
+  risk_score: {type: integer, min: 0, max: 100}
+mask_columns: [customer_name, ip_address]
+chunk_size: 10000

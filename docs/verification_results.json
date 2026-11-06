@@ -1,0 +1,122 @@
+[
+  {
+    "name": "ames_housing",
+    "rows": 2930,
+    "columns": 83,
+    "exact_duplicates": 0,
+    "missing_cells": 15749,
+    "rule_violations": 1,
+    "key_duplicates": 0,
+    "quality_score": 97.99,
+    "status": "pass",
+    "problems": []
+  },
+  {
+    "name": "apple_stock",
+    "rows": 506,
+    "columns": 11,
+    "exact_duplicates": 0,
+    "missing_cells": 0,
+    "rule_violations": 0,
+    "key_duplicates": 0,
+    "quality_score": 100.0,
+    "status": "pass",
+    "problems": []
+  },
+  {
+    "name": "diamonds",
+    "rows": 53940,
+    "columns": 10,
+    "exact_duplicates": 146,
+    "missing_cells": 0,
+    "rule_violations": 35,
+    "key_duplicates": 0,
+    "quality_score": 99.62,
+    "status": "pass",
+    "problems": []
+  },
+  {
+    "name": "earthquakes",
+    "rows": 23412,
+    "columns": 4,
+    "exact_duplicates": 2,
+    "missing_cells": 0,
+    "rule_violations": 3,
+    "key_duplicates": 0,
+    "quality_score": 99.99,
+    "status": "pass",
+    "problems": []
+  },
+  {
+    "name": "iris",
+    "rows": 150,
+    "columns": 5,
+    "exact_duplicates": 1,
+    "missing_cells": 0,
+    "rule_violations": 0,
+    "key_duplicates": 0,
+    "quality_score": 99.83,
+    "status": "pass",
+    "problems": []
+  },
+  {
+    "name": "pima_diabetes",
+    "rows": 768,
+    "columns": 9,
+    "exact_duplicates": 0,
+    "missing_cells": 0,
+    "rule_violations": 51,
+    "key_duplicates": 0,
+    "quality_score": 98.28,
+    "status": "pass",
+    "problems": []
+  },
+  {
+    "name": "seattle_weather",
+    "rows": 1461,
+    "columns": 6,
+    "exact_duplicates": 0,
+    "missing_cells": 0,
+    "rule_violations": 0,
+    "key_duplicates": 0,
+    "quality_score": 100.0,
+    "status": "pass",
+    "problems": []
+  },
+  {
+    "name": "synthetic_large",
+    "rows": 100000,
+    "columns": 20,
+    "exact_duplicates": 1,
+    "missing_cells": 4879,
+    "rule_violations": 3091,
+    "key_duplicates": 1,
+    "quality_score": 98.99,
+    "status": "pass",
+    "problems": []
+  },
+  {
+    "name": "telco_churn",
+    "rows": 7043,
+    "columns": 21,
+    "exact_duplicates": 0,
+    "missing_cells": 11,
+    "rule_violations": 0,
+    "key_duplicates": 0,
+    "quality_score": 98.86,
+    "status": "pass",
+    "problems": []
+  },
+  {
+    "name": "titanic",
+    "rows": 891,
+    "columns": 12,
+    "exact_duplicates": 0,
+    "missing_cells": 866,
+    "rule_violations": 0,
+    "key_duplicates": 0,
+    "quality_score": 97.24,
+    "status": "pass",
+    "problems": []
+  }
+]

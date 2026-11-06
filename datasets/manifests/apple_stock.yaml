@@ -1,0 +1,8 @@
+name: apple_stock
+title: Apple daily stock prices (2015-2017)
+source_url: "https://raw.githubusercontent.com/plotly/datasets/master/finance-charts-apple.csv"
+upstream: "https://github.com/plotly/datasets"
+sha256: "24c7604edfd5afe862ddb9f9535e2fd7351f43711bfc442bca52055e15e37bcd"
+license: "Not verified. Check the upstream repository before redistributing the data."
+challenge: "Financial time series; high/low consistency"
+config: "configs/datasets/apple_stock.yaml"

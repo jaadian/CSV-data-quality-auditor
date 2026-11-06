@@ -1,0 +1,837 @@
+{
+  "duplicates": {
+    "exact_duplicate_rows": 0,
+    "key_duplicates": {
+      "PassengerId": 0
+    },
+    "mode": "exact",
+    "sample_duplicate_keys": {
+      "PassengerId": []
+    },
+    "total_rows": 891,
+    "unique_rows": 891
+  },
+  "issue_summary": {
+    "high": 1,
+    "low": 1,
+    "medium": 1
+  },
+  "issues": [
+    {
+      "column": "Age",
+      "message": "Column 'Age' has 177 missing value(s) (19.9%)",
+      "row_index": null,
+      "rule_name": "missing_values",
+      "sample_value": null,
+      "severity": "medium"
+    },
+    {
+      "column": "Cabin",
+      "message": "Column 'Cabin' has 687 missing value(s) (77.1%)",
+      "row_index": null,
+      "rule_name": "missing_values",
+      "sample_value": null,
+      "severity": "high"
+    },
+    {
+      "column": "Embarked",
+      "message": "Column 'Embarked' has 2 missing value(s) (0.2%)",
+      "row_index": null,
+      "rule_name": "missing_values",
+      "sample_value": null,
+      "severity": "low"
+    }
+  ],
+  "metadata": {
+    "auditor_version": "1.1.0",
+    "column_names": [
+      "PassengerId",
+      "Survived",
+      "Pclass",
+      "Name",
+      "Sex",
+      "Age",
+      "SibSp",
+      "Parch",
+      "Ticket",
+      "Fare",
+      "Cabin",
+      "Embarked"
+    ],
+    "delimiter": ",",
+    "encoding": "utf-8",
+    "file_path": "datasets/raw/titanic.csv",
+    "file_size_bytes": 60302,
+    "sample_rows": [
+      [
+        "1",
+        "0",
+        "3",
+        "***",
+        "male",
+        "22",
+        "1",
+        "0",
+        "***",
+        "7.25",
+        "",
+        "S"
+      ],
+      [
+        "2",
+        "1",
+        "1",
+        "***",
+        "female",
+        "38",
+        "1",
+        "0",
+        "***",
+        "71.2833",
+        "C85",
+        "C"
+      ],
+      [
+        "3",
+        "1",
+        "3",
+        "***",
+        "female",
+        "26",
+        "0",
+        "0",
+        "***",
+        "7.925",
+        "",
+        "S"
+      ],
+      [
+        "4",
+        "1",
+        "1",
+        "***",
+        "female",
+        "35",
+        "1",
+        "0",
+        "***",
+        "53.1",
+        "C123",
+        "S"
+      ],
+      [
+        "5",
+        "0",
+        "3",
+        "***",
+        "male",
+        "35",
+        "0",
+        "0",
+        "***",
+        "8.05",
+        "",
+        "S"
+      ],
+      [
+        "6",
+        "0",
+        "3",
+        "***",
+        "male",
+        "",
+        "0",
+        "0",
+        "***",
+        "8.4583",
+        "",
+        "Q"
+      ],
+      [
+        "7",
+        "0",
+        "1",
+        "***",
+        "male",
+        "54",
+        "0",
+        "0",
+        "***",
+        "51.8625",
+        "E46",
+        "S"
+      ],
+      [
+        "8",
+        "0",
+        "3",
+        "***",
+        "male",
+        "2",
+        "3",
+        "1",
+        "***",
+        "21.075",
+        "",
+        "S"
+      ],
+      [
+        "9",
+        "1",
+        "3",
+        "***",
+        "female",
+        "27",
+        "0",
+        "2",
+        "***",
+        "11.1333",
+        "",
+        "S"
+      ],
+      [
+        "10",
+        "1",
+        "2",
+        "***",
+        "female",
+        "14",
+        "1",
+        "0",
+        "***",
+        "30.0708",
+        "",
+        "C"
+      ]
+    ],
+    "sniff_warnings": [],
+    "timestamp_utc": "2026-11-05T17:36:18.106057+00:00",
+    "total_columns": 12,
+    "total_rows": 891
+  },
+  "missing": {
+    "Age": {
+      "column": "Age",
+      "missing_count": 177,
+      "missing_percentage": 19.87,
+      "severity": "medium",
+      "total_count": 891
+    },
+    "Cabin": {
+      "column": "Cabin",
+      "missing_count": 687,
+      "missing_percentage": 77.1,
+      "severity": "high",
+      "total_count": 891
+    },
+    "Embarked": {
+      "column": "Embarked",
+      "missing_count": 2,
+      "missing_percentage": 0.22,
+      "severity": "low",
+      "total_count": 891
+    },
+    "Fare": {
+      "column": "Fare",
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "severity": "low",
+      "total_count": 891
+    },
+    "Name": {
+      "column": "Name",
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "severity": "low",
+      "total_count": 891
+    },
+    "Parch": {
+      "column": "Parch",
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "severity": "low",
+      "total_count": 891
+    },
+    "PassengerId": {
+      "column": "PassengerId",
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "severity": "low",
+      "total_count": 891
+    },
+    "Pclass": {
+      "column": "Pclass",
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "severity": "low",
+      "total_count": 891
+    },
+    "Sex": {
+      "column": "Sex",
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "severity": "low",
+      "total_count": 891
+    },
+    "SibSp": {
+      "column": "SibSp",
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "severity": "low",
+      "total_count": 891
+    },
+    "Survived": {
+      "column": "Survived",
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "severity": "low",
+      "total_count": 891
+    },
+    "Ticket": {
+      "column": "Ticket",
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "severity": "low",
+      "total_count": 891
+    }
+  },
+  "profiling": {
+    "Age": {
+      "categorical": {
+        "count": 714,
+        "is_unique_approximate": false,
+        "null_count": 177,
+        "top_values": {
+          "16": 17,
+          "18": 26,
+          "19": 25,
+          "20": 15,
+          "21": 24,
+          "22": 27,
+          "23": 15,
+          "24": 30,
+          "25": 23,
+          "26": 18,
+          "27": 18,
+          "28": 25,
+          "29": 20,
+          "30": 25,
+          "31": 17,
+          "32": 18,
+          "33": 15,
+          "34": 15,
+          "35": 18,
+          "36": 22
+        },
+        "unique_count": 88
+      },
+      "confidence": 1.0,
+      "has_leading_zeros": false,
+      "inferred_type": "float",
+      "numeric": {
+        "count": 714,
+        "is_median_approximate": false,
+        "max": 80.0,
+        "mean": 29.6991,
+        "median": 28.0,
+        "min": 0.42,
+        "null_count": 177,
+        "std": 14.5265
+      },
+      "string": {
+        "count": 714,
+        "leading_trailing_space_count": 0,
+        "max_length": 4,
+        "min_length": 1,
+        "null_count": 177,
+        "whitespace_only_count": 0
+      }
+    },
+    "Cabin": {
+      "categorical": {
+        "count": 204,
+        "is_unique_approximate": false,
+        "null_count": 687,
+        "top_values": {
+          "B28": 2,
+          "B58 B60": 2,
+          "B96 B98": 4,
+          "C123": 2,
+          "C2": 2,
+          "C22 C26": 3,
+          "C23 C25 C27": 4,
+          "C52": 2,
+          "C83": 2,
+          "D": 3,
+          "D26": 2,
+          "D33": 2,
+          "D36": 2,
+          "E101": 3,
+          "E33": 2,
+          "F G73": 2,
+          "F2": 3,
+          "F33": 3,
+          "F4": 2,
+          "G6": 4
+        },
+        "unique_count": 147
+      },
+      "confidence": 0.9951,
+      "has_leading_zeros": false,
+      "inferred_type": "string",
+      "string": {
+        "count": 204,
+        "leading_trailing_space_count": 0,
+        "max_length": 15,
+        "min_length": 1,
+        "null_count": 687,
+        "whitespace_only_count": 0
+      }
+    },
+    "Embarked": {
+      "categorical": {
+        "count": 889,
+        "is_unique_approximate": false,
+        "null_count": 2,
+        "top_values": {
+          "C": 168,
+          "Q": 77,
+          "S": 644
+        },
+        "unique_count": 3
+      },
+      "confidence": 1.0,
+      "has_leading_zeros": false,
+      "inferred_type": "string",
+      "string": {
+        "count": 889,
+        "leading_trailing_space_count": 0,
+        "max_length": 1,
+        "min_length": 1,
+        "null_count": 2,
+        "whitespace_only_count": 0
+      }
+    },
+    "Fare": {
+      "categorical": {
+        "count": 891,
+        "is_unique_approximate": false,
+        "null_count": 0,
+        "top_values": {
+          "0": 15,
+          "10.5": 24,
+          "13": 42,
+          "15.5": 8,
+          "16.1": 9,
+          "24.15": 8,
+          "26": 31,
+          "26.55": 15,
+          "31.275": 7,
+          "7.225": 12,
+          "7.2292": 15,
+          "7.25": 13,
+          "7.75": 34,
+          "7.775": 16,
+          "7.8542": 13,
+          "7.8958": 38,
+          "7.925": 18,
+          "8.05": 43,
+          "8.6625": 13,
+          "9.5": 9
+        },
+        "unique_count": 248
+      },
+      "confidence": 1.0,
+      "has_leading_zeros": false,
+      "inferred_type": "float",
+      "numeric": {
+        "count": 891,
+        "is_median_approximate": false,
+        "max": 512.3292,
+        "mean": 32.2042,
+        "median": 14.4542,
+        "min": 0.0,
+        "null_count": 0,
+        "std": 49.6934
+      },
+      "string": {
+        "count": 891,
+        "leading_trailing_space_count": 0,
+        "max_length": 8,
+        "min_length": 1,
+        "null_count": 0,
+        "whitespace_only_count": 0
+      }
+    },
+    "Name": {
+      "categorical": {
+        "count": 891,
+        "is_unique_approximate": false,
+        "null_count": 0,
+        "top_values": {},
+        "unique_count": 891
+      },
+      "confidence": 1.0,
+      "has_leading_zeros": false,
+      "inferred_type": "string",
+      "string": {
+        "count": 891,
+        "leading_trailing_space_count": 2,
+        "max_length": 82,
+        "min_length": 12,
+        "null_count": 0,
+        "whitespace_only_count": 0
+      }
+    },
+    "Parch": {
+      "categorical": {
+        "count": 891,
+        "is_unique_approximate": false,
+        "null_count": 0,
+        "top_values": {
+          "0": 678,
+          "1": 118,
+          "2": 80,
+          "3": 5,
+          "4": 4,
+          "5": 5,
+          "6": 1
+        },
+        "unique_count": 7
+      },
+      "confidence": 1.0,
+      "has_leading_zeros": false,
+      "inferred_type": "integer",
+      "numeric": {
+        "count": 891,
+        "is_median_approximate": false,
+        "max": 6.0,
+        "mean": 0.3816,
+        "median": 0.0,
+        "min": 0.0,
+        "null_count": 0,
+        "std": 0.8061
+      },
+      "string": {
+        "count": 891,
+        "leading_trailing_space_count": 0,
+        "max_length": 1,
+        "min_length": 1,
+        "null_count": 0,
+        "whitespace_only_count": 0
+      }
+    },
+    "PassengerId": {
+      "categorical": {
+        "count": 891,
+        "is_unique_approximate": false,
+        "null_count": 0,
+        "top_values": {
+          "1": 1,
+          "10": 1,
+          "11": 1,
+          "12": 1,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 1,
+          "18": 1,
+          "19": 1,
+          "2": 1,
+          "20": 1,
+          "3": 1,
+          "4": 1,
+          "5": 1,
+          "6": 1,
+          "7": 1,
+          "8": 1,
+          "9": 1
+        },
+        "unique_count": 891
+      },
+      "confidence": 1.0,
+      "has_leading_zeros": false,
+      "inferred_type": "integer",
+      "numeric": {
+        "count": 891,
+        "is_median_approximate": false,
+        "max": 891.0,
+        "mean": 446.0,
+        "median": 446.0,
+        "min": 1.0,
+        "null_count": 0,
+        "std": 257.3538
+      },
+      "string": {
+        "count": 891,
+        "leading_trailing_space_count": 0,
+        "max_length": 3,
+        "min_length": 1,
+        "null_count": 0,
+        "whitespace_only_count": 0
+      }
+    },
+    "Pclass": {
+      "categorical": {
+        "count": 891,
+        "is_unique_approximate": false,
+        "null_count": 0,
+        "top_values": {
+          "1": 216,
+          "2": 184,
+          "3": 491
+        },
+        "unique_count": 3
+      },
+      "confidence": 1.0,
+      "has_leading_zeros": false,
+      "inferred_type": "integer",
+      "numeric": {
+        "count": 891,
+        "is_median_approximate": false,
+        "max": 3.0,
+        "mean": 2.3086,
+        "median": 3.0,
+        "min": 1.0,
+        "null_count": 0,
+        "std": 0.8361
+      },
+      "string": {
+        "count": 891,
+        "leading_trailing_space_count": 0,
+        "max_length": 1,
+        "min_length": 1,
+        "null_count": 0,
+        "whitespace_only_count": 0
+      }
+    },
+    "Sex": {
+      "categorical": {
+        "count": 891,
+        "is_unique_approximate": false,
+        "null_count": 0,
+        "top_values": {
+          "female": 314,
+          "male": 577
+        },
+        "unique_count": 2
+      },
+      "confidence": 1.0,
+      "has_leading_zeros": false,
+      "inferred_type": "string",
+      "string": {
+        "count": 891,
+        "leading_trailing_space_count": 0,
+        "max_length": 6,
+        "min_length": 4,
+        "null_count": 0,
+        "whitespace_only_count": 0
+      }
+    },
+    "SibSp": {
+      "categorical": {
+        "count": 891,
+        "is_unique_approximate": false,
+        "null_count": 0,
+        "top_values": {
+          "0": 608,
+          "1": 209,
+          "2": 28,
+          "3": 16,
+          "4": 18,
+          "5": 5,
+          "8": 7
+        },
+        "unique_count": 7
+      },
+      "confidence": 1.0,
+      "has_leading_zeros": false,
+      "inferred_type": "integer",
+      "numeric": {
+        "count": 891,
+        "is_median_approximate": false,
+        "max": 8.0,
+        "mean": 0.523,
+        "median": 0.0,
+        "min": 0.0,
+        "null_count": 0,
+        "std": 1.1027
+      },
+      "string": {
+        "count": 891,
+        "leading_trailing_space_count": 0,
+        "max_length": 1,
+        "min_length": 1,
+        "null_count": 0,
+        "whitespace_only_count": 0
+      }
+    },
+    "Survived": {
+      "categorical": {
+        "count": 891,
+        "is_unique_approximate": false,
+        "null_count": 0,
+        "top_values": {
+          "0": 549,
+          "1": 342
+        },
+        "unique_count": 2
+      },
+      "confidence": 1.0,
+      "has_leading_zeros": false,
+      "inferred_type": "integer",
+      "numeric": {
+        "count": 891,
+        "is_median_approximate": false,
+        "max": 1.0,
+        "mean": 0.3838,
+        "median": 0.0,
+        "min": 0.0,
+        "null_count": 0,
+        "std": 0.4866
+      },
+      "string": {
+        "count": 891,
+        "leading_trailing_space_count": 0,
+        "max_length": 1,
+        "min_length": 1,
+        "null_count": 0,
+        "whitespace_only_count": 0
+      }
+    },
+    "Ticket": {
+      "categorical": {
+        "count": 891,
+        "is_unique_approximate": false,
+        "null_count": 0,
+        "top_values": {},
+        "unique_count": 681
+      },
+      "confidence": 0.7419,
+      "has_leading_zeros": false,
+      "inferred_type": "integer",
+      "numeric": {
+        "count": 661,
+        "is_median_approximate": false,
+        "max": 3101298.0,
+        "mean": 260318.5492,
+        "median": 236171.0,
+        "min": 693.0,
+        "null_count": 230,
+        "std": 471609.2687
+      },
+      "string": {
+        "count": 891,
+        "leading_trailing_space_count": 0,
+        "max_length": 18,
+        "min_length": 3,
+        "null_count": 0,
+        "whitespace_only_count": 0
+      }
+    }
+  },
+  "recommendations": [
+    {
+      "category": "Completeness",
+      "issue": "Columns with >20% missing values: Cabin",
+      "suggested_action": "Review data capture pipeline for missing attributes or evaluate imputation strategies"
+    }
+  ],
+  "rows_with_rule_violations": 0,
+  "rule_violations": {},
+  "score": {
+    "completeness": 91.9,
+    "consistency": 97.8,
+    "dimensions_used": [
+      "completeness",
+      "consistency",
+      "uniqueness",
+      "validity"
+    ],
+    "overall": 97.24,
+    "rating": "Excellent",
+    "uniqueness": 100.0,
+    "validity": 100.0,
+    "weights_used": {
+      "completeness": 0.3,
+      "consistency": 0.15,
+      "uniqueness": 0.25,
+      "validity": 0.3
+    }
+  },
+  "types": {
+    "Age": {
+      "confidence": 1.0,
+      "dominant_type_share": 1.0,
+      "has_leading_zeros": false,
+      "suggested_type": "float"
+    },
+    "Cabin": {
+      "confidence": 0.9951,
+      "dominant_type_share": 0.9951,
+      "has_leading_zeros": false,
+      "suggested_type": "string"
+    },
+    "Embarked": {
+      "confidence": 1.0,
+      "dominant_type_share": 1.0,
+      "has_leading_zeros": false,
+      "suggested_type": "string"
+    },
+    "Fare": {
+      "confidence": 1.0,
+      "dominant_type_share": 1.0,
+      "has_leading_zeros": false,
+      "suggested_type": "float"
+    },
+    "Name": {
+      "confidence": 1.0,
+      "dominant_type_share": 1.0,
+      "has_leading_zeros": false,
+      "suggested_type": "string"
+    },
+    "Parch": {
+      "confidence": 1.0,
+      "dominant_type_share": 1.0,
+      "has_leading_zeros": false,
+      "suggested_type": "integer"
+    },
+    "PassengerId": {
+      "confidence": 1.0,
+      "dominant_type_share": 1.0,
+      "has_leading_zeros": false,
+      "suggested_type": "integer"
+    },
+    "Pclass": {
+      "confidence": 1.0,
+      "dominant_type_share": 1.0,
+      "has_leading_zeros": false,
+      "suggested_type": "integer"
+    },
+    "Sex": {
+      "confidence": 1.0,
+      "dominant_type_share": 1.0,
+      "has_leading_zeros": false,
+      "suggested_type": "string"
+    },
+    "SibSp": {
+      "confidence": 1.0,
+      "dominant_type_share": 1.0,
+      "has_leading_zeros": false,
+      "suggested_type": "integer"
+    },
+    "Survived": {
+      "confidence": 1.0,
+      "dominant_type_share": 1.0,
+      "has_leading_zeros": false,
+      "suggested_type": "integer"
+    },
+    "Ticket": {
+      "confidence": 0.7419,
+      "dominant_type_share": 0.7419,
+      "has_leading_zeros": false,
+      "suggested_type": "integer"
+    }
+  }
+}

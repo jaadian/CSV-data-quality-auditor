@@ -1,0 +1,8 @@
+version: 1
+columns:
+  date: {type: date, format: "%Y-%m-%d", required: true, unique: true}
+  precipitation: {type: float, min: 0}
+  wind: {type: float, min: 0}
+  weather: {allowed: [drizzle, rain, sun, snow, fog]}
+cross_column:
+  - {name: max_ge_min_temp, rule: "temp_max >= temp_min", severity: high}

@@ -1,0 +1,8 @@
+name: titanic
+title: Titanic passengers
+source_url: "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+upstream: "https://github.com/datasciencedojo/datasets"
+sha256: "4a437fde05fe5264e1701a7387ac6fb75393772ba38bb2c9c566405af5af4bd7"
+license: "Not verified. Check the upstream repository before redistributing the data."
+challenge: "Missing Age/Cabin, categorical codes, float ages like 0.42"
+config: "configs/datasets/titanic.yaml"

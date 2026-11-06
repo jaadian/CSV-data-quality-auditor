@@ -1,0 +1,8 @@
+name: diamonds
+title: Diamond prices and dimensions
+source_url: "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/diamonds.csv"
+upstream: "https://github.com/mwaskom/seaborn-data"
+sha256: "9574730b03aba241d899c4a97511c5061b19358fab89510774fb6c24168345c4"
+license: "Not verified. Check the upstream repository before redistributing the data."
+challenge: "54k rows, quoted fields, exact duplicates, zero dimensions"
+config: "configs/datasets/diamonds.yaml"

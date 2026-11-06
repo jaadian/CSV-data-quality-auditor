@@ -1,0 +1,6 @@
+version: 1
+columns:
+  Date: {type: date, format: "%m/%d/%Y", required: true}
+  Latitude: {type: float, min: -90, max: 90}
+  Longitude: {type: float, min: -180, max: 180}
+  Magnitude: {type: float, min: 0, max: 10}

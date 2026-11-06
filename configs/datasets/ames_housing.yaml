@@ -1,0 +1,8 @@
+version: 1
+columns:
+  PID: {type: integer, required: true, unique: true}
+  SalePrice: {type: integer, min: 1}
+  Year Built: {type: integer, min: 1800, max: 2010}
+  Yr Sold: {type: integer, min: 2006, max: 2010}
+cross_column:
+  - {name: sold_after_built, rule: "Yr Sold >= Year Built", severity: high}

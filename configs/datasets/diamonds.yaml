@@ -1,0 +1,7 @@
+version: 1
+columns:
+  price: {type: integer, min: 1}
+  x: {type: float, min: 0.01}
+  y: {type: float, min: 0.01}
+  z: {type: float, min: 0.01}
+  cut: {allowed: [Fair, Good, Very Good, Premium, Ideal]}

@@ -1,0 +1,416 @@
+{
+  "duplicates": {
+    "exact_duplicate_rows": 2,
+    "key_duplicates": {},
+    "mode": "exact",
+    "sample_duplicate_keys": {},
+    "total_rows": 23412,
+    "unique_rows": 23410
+  },
+  "issue_summary": {
+    "high": 4,
+    "low": 0,
+    "medium": 0
+  },
+  "issues": [
+    {
+      "column": null,
+      "message": "Found 2 duplicate row(s) out of 23412 total rows (row mode: exact)",
+      "row_index": null,
+      "rule_name": "exact_duplicate_rows",
+      "sample_value": null,
+      "severity": "high"
+    },
+    {
+      "column": "Date",
+      "message": "Date '1975-02-23T02:58:41.000Z' does not match format '%m/%d/%Y'",
+      "row_index": 3379,
+      "rule_name": "Date_date_format",
+      "sample_value": "1975-02-23T02:58:41.000Z",
+      "severity": "high"
+    },
+    {
+      "column": "Date",
+      "message": "Date '1985-04-28T02:53:41.530Z' does not match format '%m/%d/%Y'",
+      "row_index": 7513,
+      "rule_name": "Date_date_format",
+      "sample_value": "1985-04-28T02:53:41.530Z",
+      "severity": "high"
+    },
+    {
+      "column": "Date",
+      "message": "Date '2011-03-13T02:23:34.520Z' does not match format '%m/%d/%Y'",
+      "row_index": 20651,
+      "rule_name": "Date_date_format",
+      "sample_value": "2011-03-13T02:23:34.520Z",
+      "severity": "high"
+    }
+  ],
+  "metadata": {
+    "auditor_version": "1.1.0",
+    "column_names": [
+      "Date",
+      "Latitude",
+      "Longitude",
+      "Magnitude"
+    ],
+    "delimiter": ",",
+    "encoding": "utf-8",
+    "file_path": "datasets/raw/earthquakes.csv",
+    "file_size_bytes": 833523,
+    "sample_rows": [
+      [
+        "01/02/1965",
+        "19.246",
+        "145.616",
+        "6.0"
+      ],
+      [
+        "01/04/1965",
+        "1.8630000000000002",
+        "127.352",
+        "5.8"
+      ],
+      [
+        "01/05/1965",
+        "-20.579",
+        "-173.972",
+        "6.2"
+      ],
+      [
+        "01/08/1965",
+        "-59.076",
+        "-23.557",
+        "5.8"
+      ],
+      [
+        "01/09/1965",
+        "11.937999999999999",
+        "126.427",
+        "5.8"
+      ],
+      [
+        "01/10/1965",
+        "-13.405",
+        "166.62900000000002",
+        "6.7"
+      ],
+      [
+        "01/12/1965",
+        "27.357",
+        "87.867",
+        "5.9"
+      ],
+      [
+        "01/15/1965",
+        "-13.309000000000001",
+        "166.21200000000002",
+        "6.0"
+      ],
+      [
+        "01/16/1965",
+        "-56.452",
+        "-27.043000000000003",
+        "6.0"
+      ],
+      [
+        "01/17/1965",
+        "-24.563000000000002",
+        "178.487",
+        "5.8"
+      ]
+    ],
+    "sniff_warnings": [],
+    "timestamp_utc": "2026-11-05T17:36:20.821599+00:00",
+    "total_columns": 4,
+    "total_rows": 23412
+  },
+  "missing": {
+    "Date": {
+      "column": "Date",
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "severity": "low",
+      "total_count": 23412
+    },
+    "Latitude": {
+      "column": "Latitude",
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "severity": "low",
+      "total_count": 23412
+    },
+    "Longitude": {
+      "column": "Longitude",
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "severity": "low",
+      "total_count": 23412
+    },
+    "Magnitude": {
+      "column": "Magnitude",
+      "missing_count": 0,
+      "missing_percentage": 0.0,
+      "severity": "low",
+      "total_count": 23412
+    }
+  },
+  "profiling": {
+    "Date": {
+      "categorical": {
+        "count": 23412,
+        "is_unique_approximate": false,
+        "null_count": 0,
+        "top_values": {
+          "02/04/1965": 19,
+          "02/06/2013": 27,
+          "02/27/2010": 39,
+          "03/11/2011": 128,
+          "03/12/2011": 21,
+          "03/22/2011": 13,
+          "03/23/1978": 13,
+          "07/18/1992": 17,
+          "07/26/1971": 13,
+          "08/12/1969": 12,
+          "08/16/1995": 14,
+          "09/17/2015": 13,
+          "10/04/1994": 13,
+          "10/07/2009": 13,
+          "10/08/2005": 13,
+          "11/15/2006": 25,
+          "11/16/2000": 21,
+          "12/03/1995": 15,
+          "12/26/2004": 51,
+          "12/27/2004": 14
+        },
+        "unique_count": 12401
+      },
+      "confidence": 1.0,
+      "has_leading_zeros": false,
+      "inferred_type": "date",
+      "string": {
+        "count": 23412,
+        "leading_trailing_space_count": 0,
+        "max_length": 24,
+        "min_length": 10,
+        "null_count": 0,
+        "whitespace_only_count": 0
+      }
+    },
+    "Latitude": {
+      "categorical": {
+        "count": 23412,
+        "is_unique_approximate": false,
+        "null_count": 0,
+        "top_values": {
+          "-0.972": 4,
+          "-15.222999999999999": 4,
+          "-21.125999999999998": 4,
+          "-3.775": 4,
+          "-5.5729999999999995": 4,
+          "-5.5889999999999995": 5,
+          "-5.605": 5,
+          "-5.651": 4,
+          "-5.902": 5,
+          "-56.18600000000001": 4,
+          "-6.0760000000000005": 4,
+          "-6.122000000000001": 4,
+          "-6.245": 4,
+          "-6.3229999999999995": 4,
+          "-6.38": 4,
+          "-7.526": 4,
+          "43.269": 4,
+          "51.207": 4,
+          "51.277": 4,
+          "51.5": 5
+        },
+        "unique_count": 20676
+      },
+      "confidence": 1.0,
+      "has_leading_zeros": false,
+      "inferred_type": "float",
+      "numeric": {
+        "count": 23412,
+        "is_median_approximate": true,
+        "max": 86.005,
+        "mean": 1.679,
+        "median": -3.6095,
+        "min": -77.08,
+        "null_count": 0,
+        "std": 30.1132
+      },
+      "string": {
+        "count": 23412,
+        "leading_trailing_space_count": 0,
+        "max_length": 21,
+        "min_length": 3,
+        "null_count": 0,
+        "whitespace_only_count": 0
+      }
+    },
+    "Longitude": {
+      "categorical": {
+        "count": 23412,
+        "is_unique_approximate": false,
+        "null_count": 0,
+        "top_values": {
+          "-174.8": 4,
+          "-174.922": 4,
+          "-177.312": 4,
+          "-177.553": 4,
+          "-177.80599999999998": 4,
+          "-178.07299999999998": 4,
+          "-178.40900000000002": 4,
+          "-179.361": 4,
+          "126.411": 4,
+          "126.588": 4,
+          "126.777": 5,
+          "142.75": 4,
+          "143.236": 4,
+          "147.009": 4,
+          "148.139": 4,
+          "154.934": 4,
+          "166.338": 4,
+          "166.452": 4,
+          "167.238": 4,
+          "167.34": 4
+        },
+        "unique_count": 21474
+      },
+      "confidence": 1.0,
+      "has_leading_zeros": false,
+      "inferred_type": "float",
+      "numeric": {
+        "count": 23412,
+        "is_median_approximate": true,
+        "max": 179.998,
+        "mean": 39.64,
+        "median": 103.786,
+        "min": -179.997,
+        "null_count": 0,
+        "std": 125.512
+      },
+      "string": {
+        "count": 23412,
+        "leading_trailing_space_count": 0,
+        "max_length": 19,
+        "min_length": 3,
+        "null_count": 0,
+        "whitespace_only_count": 0
+      }
+    },
+    "Magnitude": {
+      "categorical": {
+        "count": 23412,
+        "is_unique_approximate": false,
+        "null_count": 0,
+        "top_values": {
+          "5.5": 4685,
+          "5.6": 3967,
+          "5.7": 3079,
+          "5.8": 2346,
+          "5.9": 1947,
+          "6.0": 1580,
+          "6.1": 1213,
+          "6.2": 912,
+          "6.3": 765,
+          "6.4": 574,
+          "6.5": 464,
+          "6.6": 363,
+          "6.7": 314,
+          "6.8": 236,
+          "6.9": 187,
+          "7.0": 168,
+          "7.1": 123,
+          "7.2": 102,
+          "7.3": 63,
+          "7.4": 59
+        },
+        "unique_count": 64
+      },
+      "confidence": 1.0,
+      "has_leading_zeros": false,
+      "inferred_type": "float",
+      "numeric": {
+        "count": 23412,
+        "is_median_approximate": true,
+        "max": 9.1,
+        "mean": 5.8825,
+        "median": 5.7,
+        "min": 5.5,
+        "null_count": 0,
+        "std": 0.4231
+      },
+      "string": {
+        "count": 23412,
+        "leading_trailing_space_count": 0,
+        "max_length": 4,
+        "min_length": 3,
+        "null_count": 0,
+        "whitespace_only_count": 0
+      }
+    }
+  },
+  "recommendations": [
+    {
+      "category": "Uniqueness",
+      "issue": "Encountered 2 duplicate row(s)",
+      "suggested_action": "Deduplicate dataset before downstream loading; consider primary key constraints"
+    },
+    {
+      "category": "Schema Validation",
+      "issue": "3 rule violation(s) across 1 rule(s)",
+      "suggested_action": "Quarantine defective records or patch pipeline transformations"
+    }
+  ],
+  "rows_with_rule_violations": 3,
+  "rule_violations": {
+    "Date_date_format": 3
+  },
+  "score": {
+    "completeness": 100.0,
+    "consistency": 100.0,
+    "dimensions_used": [
+      "completeness",
+      "consistency",
+      "uniqueness",
+      "validity"
+    ],
+    "overall": 99.99,
+    "rating": "Excellent",
+    "uniqueness": 99.99,
+    "validity": 99.98,
+    "weights_used": {
+      "completeness": 0.3,
+      "consistency": 0.15,
+      "uniqueness": 0.25,
+      "validity": 0.3
+    }
+  },
+  "types": {
+    "Date": {
+      "confidence": 1.0,
+      "dominant_type_share": 1.0,
+      "has_leading_zeros": false,
+      "suggested_type": "date"
+    },
+    "Latitude": {
+      "confidence": 1.0,
+      "dominant_type_share": 1.0,
+      "has_leading_zeros": false,
+      "suggested_type": "float"
+    },
+    "Longitude": {
+      "confidence": 1.0,
+      "dominant_type_share": 1.0,
+      "has_leading_zeros": false,
+      "suggested_type": "float"
+    },
+    "Magnitude": {
+      "confidence": 1.0,
+      "dominant_type_share": 1.0,
+      "has_leading_zeros": false,
+      "suggested_type": "float"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+name: pima_diabetes
+title: Pima Indians diabetes (medical, no header)
+source_url: "https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv"
+upstream: "https://github.com/jbrownlee/Datasets"
+sha256: "6bfe5d0f379d17a0e0819b996407e3c09bf80febd4287f2ed212190dfff154af"
+license: "Not verified. Check the upstream repository before redistributing the data."
+challenge: "No header row; missing measurements are encoded as 0"
+config: "configs/datasets/pima_diabetes.yaml"
+no_header: true
+columns: [pregnancies, glucose, blood_pressure, skin_thickness, insulin, bmi, pedigree, age, outcome]

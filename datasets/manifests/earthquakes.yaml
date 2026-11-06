@@ -1,0 +1,8 @@
+name: earthquakes
+title: Significant earthquakes 1965-2016 (USGS-derived)
+source_url: "https://raw.githubusercontent.com/plotly/datasets/master/earthquakes-23k.csv"
+upstream: "https://github.com/plotly/datasets"
+sha256: "e03a6ef53617c7614272def82dcaa2e5a463426c4abbb2b3a26936de1c88a622"
+license: "Not verified. Check the upstream repository before redistributing the data."
+challenge: "Coordinate bounds, magnitude range, US-style dates"
+config: "configs/datasets/earthquakes.yaml"

@@ -1,0 +1,9 @@
+version: 1
+columns:
+  customerID: {type: string, required: true, unique: true}
+  SeniorCitizen: {allowed: ["0", "1"]}
+  tenure: {type: integer, min: 0}
+  MonthlyCharges: {type: float, min: 0}
+  TotalCharges: {type: float, min: 0}
+  Churn: {allowed: ["Yes", "No"]}
+mask_columns: [customerID]

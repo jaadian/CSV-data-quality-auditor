@@ -1,0 +1,8 @@
+name: telco_churn
+title: IBM Telco customer churn
+source_url: "https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv"
+upstream: "https://github.com/IBM/telco-customer-churn-on-icp4d"
+sha256: "16320c9c1ec72448db59aa0a26a0b95401046bef5d02fd3aeb906448e3055e91"
+license: "Not verified. Check the upstream repository before redistributing the data."
+challenge: "String IDs, TotalCharges blank (single space) for new customers"
+config: "configs/datasets/telco_churn.yaml"

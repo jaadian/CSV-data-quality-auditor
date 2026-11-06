@@ -1,0 +1,9 @@
+version: 1
+columns:
+  PassengerId: {type: integer, required: true, unique: true}
+  Survived: {allowed: ["0", "1"]}
+  Pclass: {allowed: ["1", "2", "3"]}
+  Sex: {allowed: [male, female]}
+  Age: {type: float, min: 0, max: 120}
+  Fare: {type: float, min: 0}
+  Embarked: {allowed: [C, Q, S]}

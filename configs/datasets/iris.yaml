@@ -1,0 +1,7 @@
+version: 1
+columns:
+  sepal_length: {type: float, min: 0}
+  sepal_width: {type: float, min: 0}
+  petal_length: {type: float, min: 0}
+  petal_width: {type: float, min: 0}
+  species: {allowed: [setosa, versicolor, virginica]}

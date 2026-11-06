@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSV Data Quality Audit: {{ result.metadata.file_path }}</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --info: #818cf8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 2rem;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    header {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    h1 { font-size: 1.75rem; font-weight: 700; color: #fff; }
+    .subtitle { color: var(--text-muted); font-size: 0.875rem; margin-top: 0.25rem; }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-excellent { background: rgba(34, 197, 94, 0.2); color: var(--success); border: 1px solid var(--success); }
+    .badge-good { background: rgba(56, 189, 248, 0.2); color: var(--primary); border: 1px solid var(--primary); }
+    .badge-needs-improvement { background: rgba(245, 158, 11, 0.2); color: var(--warning); border: 1px solid var(--warning); }
+    .badge-poor { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); }
+    .badge-high { background: rgba(239, 68, 68, 0.2); color: var(--danger); border: 1px solid var(--danger); }
+    .badge-medium { background: rgba(245, 158, 11, 0.2); color: var(--warning); border: 1px solid var(--warning); }
+    .badge-low { background: rgba(56, 189, 248, 0.2); color: var(--primary); border: 1px solid var(--primary); }
+
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 0.5rem;
+      padding: 1.25rem;
+    }
+    .card-title { color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; font-weight: 600; margin-bottom: 0.5rem; }
+    .card-value { font-size: 1.75rem; font-weight: 700; color: #fff; }
+    .card-desc { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+    section { margin-bottom: 2.5rem; }
+    h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; color: #fff; border-left: 3px solid var(--primary); padding-left: 0.75rem; }
+    
+    table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.875rem; }
+    th { text-align: left; padding: 0.75rem 1rem; background: #162032; color: var(--text-muted); font-weight: 600; border-bottom: 1px solid var(--card-border); }
+    td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--card-border); }
+    tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+    .progress-bar { background: #334155; border-radius: 4px; overflow: hidden; height: 8px; width: 100px; display: inline-block; vertical-align: middle; margin-right: 0.5rem; }
+    .progress-fill { height: 100%; border-radius: 4px; }
+    .progress-fill-low { background: var(--success); }
+    .progress-fill-med { background: var(--warning); }
+    .progress-fill-high { background: var(--danger); }
+
+    .code-pill {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.75rem;
+      background: #0f172a;
+      padding: 0.2rem 0.4rem;
+      border-radius: 0.25rem;
+      border: 1px solid var(--card-border);
+    }
+    .callout {
+      background: rgba(56, 189, 248, 0.08);
+      border-left: 4px solid var(--primary);
+      padding: 1rem;
+      border-radius: 0.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>CSV Data Quality Audit Report</h1>
+        <div class="subtitle">File: <span class="code-pill">{{ result.metadata.file_path }}</span></div>
+        <div class="subtitle">Audited at {{ result.metadata.timestamp_utc }} UTC &bull; csv-auditor v{{ result.metadata.auditor_version }}</div>
+      </div>
+      <div>
+        <span class="badge badge-{{ result.score.rating|lower|replace(' ', '-') }}">Score: {{ result.score.overall }}/100 &bull; {{ result.score.rating }}</span>
+      </div>
+    </header>
+
+    <div class="callout">
+      Quality Score is a heuristic synthesis of completeness, uniqueness, consistency, and configured schema validity. It is intended as an engineering indicator rather than an absolute specification.
+    </div>
+
+    <div class="grid-4">
+      <div class="card">
+        <div class="card-title">Completeness</div>
+        <div class="card-value">{{ result.score.completeness }}%</div>
+        <div class="card-desc">Non-null cell ratio</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Uniqueness</div>
+        <div class="card-value">{{ result.score.uniqueness }}%</div>
+        <div class="card-desc">{{ result.duplicates.exact_duplicate_rows }} duplicate row(s) ({{ result.duplicates.mode }})</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Consistency</div>
+        <div class="card-value">{{ result.score.consistency }}%</div>
+        <div class="card-desc">Column dominant-type alignment</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Validity</div>
+        <div class="card-value">{% if result.score.validity is not none %}{{ result.score.validity }}%{% else %}N/A{% endif %}</div>
+        <div class="card-desc">{% if result.score.validity is not none %}Evaluated via schema rules{% else %}No custom rules provided{% endif %}</div>
+      </div>
+    </div>
+
+    <section>
+      <h2>Dataset Overview</h2>
+      <div class="card">
+        <table>
+          <tbody>
+            <tr><th>Total Rows</th><td>{{ result.metadata.total_rows }}</td><th>File Size</th><td>{{ "%.2f"|format(result.metadata.file_size_bytes / 1024) }} KB</td></tr>
+            <tr><th>Total Columns</th><td>{{ result.metadata.total_columns }}</td><th>Detected Encoding</th><td>{{ result.metadata.encoding }}</td></tr>
+            <tr><th>Delimiter</th><td><span class="code-pill">{{ result.metadata.delimiter }}</span></td><th>Duplicate Row Count</th><td>{{ result.duplicates.exact_duplicate_rows }}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Missing Value Profile</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Missing Count</th>
+              <th>Missing %</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for col, stats in result.missing.items() %}
+            <tr>
+              <td><strong>{{ col }}</strong></td>
+              <td>{{ stats.missing_count }} / {{ stats.total_count }}</td>
+              <td>
+                <div class="progress-bar">
+                  <div class="progress-fill {% if stats.missing_percentage > 20 %}progress-fill-high{% elif stats.missing_percentage > 5 %}progress-fill-med{% else %}progress-fill-low{% endif %}" style="width: {{ stats.missing_percentage }}%;"></div>
+                </div>
+                {{ stats.missing_percentage }}%
+              </td>
+              <td>{% if stats.missing_count == 0 %}<span class="badge">none</span>{% else %}<span class="badge badge-{{ stats.severity.value }}">{{ stats.severity.value }}</span>{% endif %}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Inferred Column Types & Profiles</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Suggested Type</th>
+              <th>Confidence</th>
+              <th>Leading Zeros Flag</th>
+              <th>Distinct / Top Values</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for col, inf in result.types.items() %}
+            <tr>
+              <td><strong>{{ col }}</strong></td>
+              <td><span class="code-pill">{{ inf.suggested_type }}</span></td>
+              <td>{{ "%.1f"|format(inf.confidence * 100) }}%</td>
+              <td>{% if inf.has_leading_zeros %}<span class="badge badge-medium">Preserved (String)</span>{% else %}No{% endif %}</td>
+              <td>
+                {% if col in result.profiling and 'categorical' in result.profiling[col] %}
+                  Unique: {{ result.profiling[col]['categorical']['unique_count'] }}
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    {% if result.metadata.sample_rows %}
+    <section>
+      <h2>Sample Records Preview</h2>
+      <div class="card" style="overflow-x: auto;">
+        <table>
+          <thead>
+            <tr>
+              {% for col in result.metadata.column_names %}
+              <th>{{ col }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in result.metadata.sample_rows %}
+            <tr>
+              {% for cell in row %}
+              <td>{{ cell }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    {% endif %}
+
+    {% if result.issues %}
+    <section>
+      <h2>Detected Issues & Rule Violations ({{ result.issues|length }})</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Severity</th>
+              <th>Rule</th>
+              <th>Column / Row</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for issue in result.issues %}
+            <tr>
+              <td><span class="badge badge-{{ issue.severity.value }}">{{ issue.severity.value }}</span></td>
+              <td><span class="code-pill">{{ issue.rule_name }}</span></td>
+              <td>
+                {% if issue.column %}{{ issue.column }}{% endif %}
+                {% if issue.row_index is not none %} (row {{ issue.row_index }}){% endif %}
+              </td>
+              <td>{{ issue.message }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    {% endif %}
+
+    {% if result.recommendations %}
+    <section>
+      <h2>Actionable Recommendations</h2>
+      <div class="card">
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Issue Summary</th>
+              <th>Suggested Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for rec in result.recommendations %}
+            <tr>
+              <td><strong>{{ rec.category }}</strong></td>
+              <td>{{ rec.issue }}</td>
+              <td>{{ rec.suggested_action }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    {% endif %}
+
+  </div>
+</body>
+</html>
