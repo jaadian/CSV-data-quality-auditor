@@ -3,13 +3,20 @@ import math
 from csv_auditor.config import ScoreWeights
 from csv_auditor.models import ColumnMissingStats, InferredColumnType, QualityScore
 
+# Decimals kept (in hundredths of a point) before flooring; anything smaller is float noise.
+_NOISE_DECIMALS = 6
+
 
 def _floor2(value: float) -> float:
     """Round down to 2 decimals so a dataset with any problem never shows 100.00.
 
     round() turned 99.996 (3 bad dates in 23,412 rows) into a perfect 100.0.
+
+    The value is first rounded to 6 decimals to absorb binary floating-point noise:
+    a clean score that came out as 99.99999999999999 must not be floored to 99.99.
+    Real defects are far larger than 1e-6 of a percentage point, so they still floor down.
     """
-    return math.floor(value * 100) / 100
+    return math.floor(round(value * 100, _NOISE_DECIMALS)) / 100
 
 
 class QualityScoreCalculator:
@@ -72,10 +79,13 @@ class QualityScoreCalculator:
             dim_scores["validity"] = validity
             dim_weights["validity"] = self.weights.validity
 
-        total_weight = sum(dim_weights.values())
+        # math.fsum is exactly rounded, so the result does not depend on summation order or
+        # on the interpreter: built-in sum() only gained compensated summation in Python 3.12,
+        # which made a perfect dataset score 99.99 on 3.11 and 100.0 on 3.12+.
+        total_weight = math.fsum(dim_weights.values())
         if total_weight > 0:
             renormalized_weights = {k: v / total_weight for k, v in dim_weights.items()}
-            overall = sum(dim_scores[k] * renormalized_weights[k] for k in dim_scores)
+            overall = math.fsum(dim_scores[k] * dim_weights[k] for k in dim_scores) / total_weight
         else:
             renormalized_weights = {}
             overall = 0.0
